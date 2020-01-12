@@ -56,6 +56,9 @@ public class ListPackages {
 
         } catch (Exception e) {
             System.out.println(e.toString());   
+            
+        } finally {
+            rep.CloseFile();
         }
 
     }
