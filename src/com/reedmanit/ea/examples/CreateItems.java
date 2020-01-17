@@ -38,6 +38,7 @@ public class CreateItems {
     private static short i;
     private static String VIEWNAME = "MyView";
     private static String PACKAGENAME = "MyPackage";
+    private static String ELEMENTNAME = "MyComponent";
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -64,6 +65,7 @@ public class CreateItems {
             
             createView(VIEWNAME);
             createPackage(viewPackageGUID);
+            createElement(packageGUID);
             
             System.out.println("Finished successfully");
 
@@ -122,6 +124,21 @@ public class CreateItems {
         
         newPackage.GetPackages().Refresh();   // refresh the packages
      
+        rep.GetModels().Refresh();  // refresh the repo
+    }
+    
+    private static void createElement(String aGUID) {
+        
+        org.sparx.Package thePackage = rep.GetPackageByGuid(aGUID);   // get the package where element will reside
+        
+        Collection<org.sparx.Element> elements = thePackage.GetElements();  // get the elements within the package
+        
+        org.sparx.Element newComponent = elements.AddNew(ELEMENTNAME, "Component");  // add a new element
+        
+        newComponent.Update();   // update the new element
+                              
+        newComponent.GetElements().Refresh();  // refresh the collection of elements
+        
         rep.GetModels().Refresh();  // refresh the repo
     }
 
